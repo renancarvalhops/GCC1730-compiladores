@@ -1,4 +1,3 @@
-# sly_example.py
 from sly import Lexer, Parser
 
 class CalcLexer(Lexer):
@@ -30,10 +29,15 @@ class CalcParser(Parser):
        'expr MUL expr',
        'expr DIV expr')
     def expr(self, p):
-        if p[1] == '+': return p[0] + p[2]
-        elif p[1] == '-': return p[0] - p[2]
-        elif p[1] == '*': return p[0] * p[2]
-        elif p[1] == '/': return p[0] / p[2]
+        match(p[1]):
+            case '+': 
+                return p[0] + p[2]
+            case '-': 
+                return p[0] - p[2]
+            case '*': 
+                return p[0] * p[2]
+            case '/': 
+                return p[0] / p[2]
 
     @_('LPAREN expr RPAREN')
     def expr(self, p):
@@ -45,4 +49,12 @@ class CalcParser(Parser):
 
 lexer = CalcLexer()
 parser = CalcParser()
-print(parser.parse(lexer.tokenize("3 + 2 * (5 - 1)")))
+sentences = [
+    "3 + 2 * (5 - 1)",
+    "5 + 2 * 2"
+]
+
+for sentence in sentences:
+    tokens = lexer.tokenize(sentence)
+    result = parser.parse(tokens)
+    print(f"Result of '{sentence}': {result}")
