@@ -1,60 +1,17 @@
-from sly import Lexer, Parser
+from colorama import Fore, init
+from Jogo import Jogo
 
-class CalcLexer(Lexer):
-    tokens = { NUM, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN }
-    ignore = ' \t'
+if __name__ == "__main__":
+    init(autoreset=True)
 
-    PLUS    = r'\+'
-    MINUS   = r'-'
-    MUL     = r'\*'
-    DIV     = r'/'
-    LPAREN  = r'\('
-    RPAREN  = r'\)'
-    NUM     = r'\d+'
+    jogo = Jogo("teste")
+    print(Fore.BLUE + "Trabalho de Compiladores 2025.1")
+    print("Grupo: Gabriel Franco, Gilmar Santos, Juan Carvalho, e Renan Carvalho\n")
+    jogo.exibir_labirinto()
 
-    def NUM(self, t):
-        t.value = int(t.value)
-        return t
-
-class CalcParser(Parser):
-    tokens = CalcLexer.tokens
-
-    precedence = (
-        ('left', PLUS, MINUS),
-        ('left', MUL, DIV),
-    )
-
-    @_('expr PLUS expr',
-       'expr MINUS expr',
-       'expr MUL expr',
-       'expr DIV expr')
-    def expr(self, p):
-        match(p[1]):
-            case '+': 
-                return p[0] + p[2]
-            case '-': 
-                return p[0] - p[2]
-            case '*': 
-                return p[0] * p[2]
-            case '/': 
-                return p[0] / p[2]
-
-    @_('LPAREN expr RPAREN')
-    def expr(self, p):
-        return p.expr
-
-    @_('NUM')
-    def expr(self, p):
-        return p.NUM
-
-lexer = CalcLexer()
-parser = CalcParser()
-sentences = [
-    "3 + 2 * (5 - 1)",
-    "5 + 2 * 2"
-]
-
-for sentence in sentences:
-    tokens = lexer.tokenize(sentence)
-    result = parser.parse(tokens)
-    print(f"Result of '{sentence}': {result}")
+    jogando = True
+    while jogando:
+        comandos = input(Fore.YELLOW + "\nComandos: ").lower()
+        # tokens = lexer.tokenize(comandos)
+        # result = parser.parse(tokens)
+        jogando = jogo.executar_comando(comandos)
