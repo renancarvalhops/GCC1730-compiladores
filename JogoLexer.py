@@ -1,19 +1,14 @@
 from sly import Lexer
 
 class JogoLexer(Lexer):
-    tokens = { UP, DOWN, LEFT, RIGHT, STEPS }
+    tokens = { DIRECAO, SAIR, NUMERO }
     ignore = ' \t'
 
-    UP = r'w'
-    DOWN = r's'
-    LEFT = r'a'
-    RIGHT = r'd'
-    #ATTACK
-    #JUMP
-
+    DIRECAO = r'pc|pb|pe|pd'
+    SAIR = r'sair'
 
     #Se quiser garantir que STEPS só ocorra depois de uma direção, isso será tratado no parser, não no lexer.
     @_(r'\d+') # type: ignore
-    def STEPS(self, t):
+    def NUMERO(self, t):
         t.value = int(t.value)
         return t
