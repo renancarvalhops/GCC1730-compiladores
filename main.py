@@ -19,7 +19,7 @@ if __name__ == "__main__":
             comandos = input(Fore.YELLOW + "\nComandos: ").lower()
             tokens = lexer.tokenize(comandos)
             resultado = parser.parse(tokens)
-            print(resultado)
+            print('\n' + Fore.BLUE + resultado + '\n')
             jogando = jogo.executar_comando(resultado)
-        except Exception as error:
-            print(error)
+        except Exception as e:
+            print('\n' + Fore.RED + str(e))

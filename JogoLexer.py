@@ -19,4 +19,4 @@ class JogoLexer(Lexer):
         return t
     
     def error(self, t):
-        raise Exception(f"Token inválido: {t.value.split(" ")[0]} --> Tokens válidos: pc, pb, pe, pd, repita e sair")
+        raise Exception(f"Token inválido: {t.value.split(" ")[0]} --> Tokens válidos: pc pb pe pd repita [ ] sair")

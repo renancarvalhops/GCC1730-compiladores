@@ -49,7 +49,9 @@ class JogoParser(Parser):
         return 'd'
     
     def error(self, p):
+        exemplo_sintaxe = "Alguns exemplos de sintaxes válidas: pd 5 || pd 2 pc 3 || repita 5 [pc 2 pd 3] || pb 1 repita 2 [pe 2 pb 50] || sair"
+
         if p:
-            raise Exception(f"Erro de sintaxe no token '{p.type}' com valor '{p.value}' na posição {p.index}")
+            raise Exception(f"Erro de sintaxe antes do token '{p.value}' na posição {p.index}\n{exemplo_sintaxe}")
         else:
-            raise Exception("Erro de sintaxe: final inesperado da entrada")
+            raise Exception(f"Erro de sintaxe: final inesperado da entrada\n{exemplo_sintaxe}")
