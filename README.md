@@ -34,13 +34,13 @@ Opções de comandos:
 
 - `sair`: encerra o jogo
 
-O jogo somente permite o movimento do personagem com as teclas `w s d a` (ex.: "w s a a d d"), logo o analisar léxico/sintático além da verificação da corretude de tokens e sentenças, transforma a entrada do usuário para um texto executável pelo jogo.
+O jogo permite somente a movimentação do personagem com as teclas `w s d a` (ex.: "w s a a d d"), logo o analisador léxico/sintático, além da verificação da corretude de tokens e sentenças, transforma a entrada do usuário para um texto executável pelo jogo.
 
 Caso queira adicionar novos cenários, acesse o arquivo `labirintos.py`, adicione uma chave no mapa `labirintos` com o nome do cenário e adicione a matriz que corresponde ao cenário. Posteriormente, adicione na linha 9 do arquivo `main.py` o nome do cenário como argumento da instância do jogo para utiliza-lo.
 
 Descrição dos caracteres do cenário na matriz:
 
-- #: árvore (obstáculos)
+- #: árvore (obstáculo)
 - .: espaço disponivel para movimentação
 - J: estado inicial do jogador
 - F: estado final
