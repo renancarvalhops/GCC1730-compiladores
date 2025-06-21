@@ -4,47 +4,47 @@ from JogoLexer import JogoLexer
 class JogoParser(Parser):
     tokens = JogoLexer.tokens
 
-    @_('comando')
+    @_('comando') # type: ignore
     def entrada(self, p):
         return p.comando.strip()
 
-    @_('acao comando')
+    @_('acao comando')  # type: ignore
     def comando(self, p):
         return " ".join([p.acao, p.comando])
 
-    @_('estrutura comando')
+    @_('estrutura comando') # type: ignore
     def comando(self, p):
         return " ".join([p.estrutura, p.comando])
 
-    @_('')
+    @_('') # type: ignore
     def comando(self, p):
         return ''
 
-    @_('direcao numero')
+    @_('direcao numero') # type: ignore
     def acao(self, p):
         return " ".join(p.direcao * p.numero)
 
-    @_('sair')
+    @_('sair') # type: ignore
     def acao(self, p):
         return 'q'
 
-    @_('repita numero "[" comando "]"')
+    @_('repita numero "[" comando "]"') # type: ignore
     def estrutura(self, p):
         return "".join(p.comando * p.numero)
 
-    @_('pc')
+    @_('pc') # type: ignore
     def direcao(self, p):
         return 'w'
 
-    @_('pb')
+    @_('pb') # type: ignore
     def direcao(self, p):
         return 's'
 
-    @_('pe')
+    @_('pe') # type: ignore
     def direcao(self, p):
         return 'a'
 
-    @_('pd')
+    @_('pd') # type: ignore
     def direcao(self, p):
         return 'd'
     

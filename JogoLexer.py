@@ -13,7 +13,7 @@ class JogoLexer(Lexer):
     repita = r'repita'
     sair = r'sair'
 
-    @_(r'\d+')
+    @_(r'\d+') # type: ignore
     def numero(self, t):
         t.value = int(t.value)
         return t
