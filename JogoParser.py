@@ -4,30 +4,46 @@ from JogoLexer import JogoLexer
 class JogoParser(Parser):
     tokens = JogoLexer.tokens
 
-    precedence = (
-        ('left', PLUS, MINUS),
-        ('left', MUL, DIV),
-    )
+    @_('comando')
+    def entrada(self, p):
+        return p.comando
 
-    @_('expr PLUS expr',
-       'expr MINUS expr',
-       'expr MUL expr',
-       'expr DIV expr')
-    def expr(self, p):
-        match(p[1]):
-            case '+': 
-                return p[0] + p[2]
-            case '-': 
-                return p[0] - p[2]
-            case '*': 
-                return p[0] * p[2]
-            case '/': 
-                return p[0] / p[2]
+    @_('acao comando')
+    def comando(self, p):
+        return " ".join([p.acao, p.comando])
 
-    @_('LPAREN expr RPAREN')
-    def expr(self, p):
-        return p.expr
+    @_('estrutura comando')
+    def comando(self, p):
+        return " ".join([p.estrutura, p.comando])
 
-    @_('NUM')
-    def expr(self, p):
-        return p.NUM
+    @_('')
+    def comando(self, p):
+        return ''
+
+    @_('direcao numero')
+    def acao(self, p):
+        return " ".join(p.direcao * p.numero)
+
+    @_('sair')
+    def acao(self, p):
+        return 'q'
+
+    @_('repita numero "[" comando "]"')
+    def estrutura(self, p):
+        return "".join(p.comando * p.numero)
+
+    @_('pc')
+    def direcao(self, p):
+        return 'w'
+
+    @_('pb')
+    def direcao(self, p):
+        return 's'
+
+    @_('pe')
+    def direcao(self, p):
+        return 'a'
+
+    @_('pd')
+    def direcao(self, p):
+        return 'd'
