@@ -15,8 +15,11 @@ if __name__ == "__main__":
 
     jogando = True
     while jogando:
-        comandos = input(Fore.YELLOW + "\nComandos: ").lower()
-        tokens = lexer.tokenize(comandos)
-        resultado = parser.parse(tokens)
-        print(resultado)
-        jogando = jogo.executar_comando(resultado)
+        try:            
+            comandos = input(Fore.YELLOW + "\nComandos: ").lower()
+            tokens = lexer.tokenize(comandos)
+            resultado = parser.parse(tokens)
+            print(resultado)
+            jogando = jogo.executar_comando(resultado)
+        except Exception as error:
+            print(error)

@@ -6,7 +6,7 @@ class JogoParser(Parser):
 
     @_('comando')
     def entrada(self, p):
-        return p.comando
+        return p.comando.strip()
 
     @_('acao comando')
     def comando(self, p):
@@ -47,3 +47,9 @@ class JogoParser(Parser):
     @_('pd')
     def direcao(self, p):
         return 'd'
+    
+    def error(self, p):
+        if p:
+            raise Exception(f"Erro de sintaxe no token '{p.type}' com valor '{p.value}' na posição {p.index}")
+        else:
+            raise Exception("Erro de sintaxe: final inesperado da entrada")

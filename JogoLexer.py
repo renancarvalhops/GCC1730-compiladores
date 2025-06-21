@@ -17,3 +17,6 @@ class JogoLexer(Lexer):
     def numero(self, t):
         t.value = int(t.value)
         return t
+    
+    def error(self, t):
+        raise Exception(f"Token inválido: {t.value.split(" ")[0]} --> Tokens válidos: pc, pb, pe, pd, repita e sair")
